@@ -8,7 +8,6 @@ SIZE = 128                  # size of model input, assume x=y=z
 STRIDE = 112                # equals to SIZE - overlap
 SPACING = (0.7, 0.7, 1.0)   # input image resample spacing
 PERMUTE = (1, 2, 0)         # permute axes to match VTK x,y,z
-ACTIVATION = False          # return activation instead of cam (good for debugging)
 
 
 class gcd_core():
@@ -25,8 +24,21 @@ class gcd_core():
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
         self.img0 = mt.LoadImage()(input_file).flip(0)
-        self.img0_spacing = self.img0.meta.get('pixdim', [1.0, 1.0, 1.0])[:3]
         self.img1 = mt.Spacing(mode='bilinear', pixdim=SPACING)(self.img0.unsqueeze(0))
+
+        # zero pad image if too small
+        W, D = SIZE+STRIDE, SIZE
+        shape = list(self.img1.shape)
+        slices = [slice(None), slice(None), slice(None), slice(None)]
+        if shape[1] < W: x = (W-shape[1])//2; slices[1] = slice(x, x+shape[1]); shape[1] = W
+        if shape[2] < W: x = (W-shape[2])//2; slices[2] = slice(x, x+shape[2]); shape[2] = W
+        if shape[3] < D: x = (D-shape[3])//2; slices[3] = slice(x, x+shape[3]); shape[3] = D
+        if any(s.start is not None for s in slices):
+            img = torch.zeros(shape)
+            img[tuple(slices)] = self.img1
+            self.img1 = img
+            print('info: image is zero padded')
+
         self.img1 = mt.ScaleIntensityRange(a_min=-42, a_max=423, b_min=0, b_max=1, clip=True)(self.img1)
         self.img1_spacing = (SPACING[PERMUTE[0]], SPACING[PERMUTE[1]], SPACING[PERMUTE[2]])
         img2 = self.img1.unsqueeze(0).to(device)
@@ -41,18 +53,15 @@ class gcd_core():
         model.eval()
 
         print('info: computing, this may take a while ', end='', flush=True)
-        x0,y0,z0 = ((torch.tensor(self.img1[0].shape) -
-            torch.tensor([STRIDE+SIZE,STRIDE+SIZE,SIZE]))//2).tolist()
+        x0,y0,z0 = list((torch.tensor(self.img1[0].shape) -
+            torch.tensor([STRIDE+SIZE,STRIDE+SIZE,SIZE]))//2)
         self.patch = []
         for (x,y) in [(0,0), (0,STRIDE), (STRIDE,0), (STRIDE,STRIDE)]:
             logits = model(img2[..., x0+x : x0+x+SIZE, y0+y : y0+y+SIZE, z0 : z0+SIZE])
-            if ACTIVATION:
-                self.patch.append({k: v.detach().cpu() for k, v in model.layers.items()})
-            else:
-                index = torch.argmax(logits[0], dim=0)
-                loss = (logits[0, 1] * (index == 1)).sum()
-                loss.backward()
-                self.patch.append({k: (v.detach() * v.grad.detach()).cpu() for k, v in model.layers.items()})
+            index = torch.argmax(logits[0], dim=0)
+            loss = (logits[0, 1] * (index == 1)).sum()
+            loss.backward()
+            self.patch.append({k: (v.detach() * v.grad.detach()).cpu() for k, v in model.layers.items()})
             print('.', end='', flush=True)
         print(' done')
 
@@ -67,8 +76,8 @@ class gcd_core():
         n2 = min(n2, self.layers[layer])
         shape = list(self.img1[0].shape)
         cam = torch.zeros (shape, dtype=torch.float32)
-        x0,y0,z0 = ((torch.tensor(self.img1[0].shape) -
-            torch.tensor([STRIDE+SIZE,STRIDE+SIZE,SIZE]))//2).tolist()
+        x0,y0,z0 = list((torch.tensor(self.img1[0].shape) -
+            torch.tensor([STRIDE+SIZE,STRIDE+SIZE,SIZE]))//2)
         for n,(x,y) in enumerate([(0,0), (0,STRIDE), (STRIDE,0), (STRIDE,STRIDE)]):
             q = torch.sum(self.patch[n][layer][:,n1:n2,...], dim=1).unsqueeze(0)
             q = F.interpolate(q, size=(SIZE,SIZE,SIZE), mode='trilinear')
@@ -89,11 +98,12 @@ class gcd_core():
         print(f'{m.item():.3f}', end=' ', flush=True)
         if m > 0:
             cam /= m
+        cam[cam>0.1] += 1
+
         if use_overlay:
             cam[cam>0.1] += 1
             self.cam = (cam * 400 + self.img1[0] * 300).permute(*PERMUTE)
         else:
-            # self.cam = (cam * 900 + self.img1[0] *    50).permute(*PERMUTE)
             self.cam = (cam * 900).permute(*PERMUTE)
 
 
