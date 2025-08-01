@@ -50,7 +50,7 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
    ```
 4. Install PyTorch with CUDA 11.3 support:
    ```
-   pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113
+   pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
    ```
 
 5. Install the remaining dependencies from requirements.txt:
