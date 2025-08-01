@@ -25,6 +25,7 @@ class gcd_core():
 
         self.img0 = mt.LoadImage()(input_file).flip(0)
         self.img1 = mt.Spacing(mode='bilinear', pixdim=SPACING)(self.img0.unsqueeze(0))
+        self.img1 = mt.ScaleIntensityRange(a_min=-42, a_max=423, b_min=0, b_max=1, clip=True)(self.img1)
 
         # zero pad image if too small
         W, D = SIZE+STRIDE, SIZE
@@ -39,7 +40,6 @@ class gcd_core():
             self.img1 = img
             print('info: image is zero padded')
 
-        self.img1 = mt.ScaleIntensityRange(a_min=-42, a_max=423, b_min=0, b_max=1, clip=True)(self.img1)
         self.img1_spacing = (SPACING[PERMUTE[0]], SPACING[PERMUTE[1]], SPACING[PERMUTE[2]])
         img2 = self.img1.unsqueeze(0).to(device)
         img2.requires_grad_()
@@ -98,7 +98,6 @@ class gcd_core():
         print(f'{m.item():.3f}', end=' ', flush=True)
         if m > 0:
             cam /= m
-        cam[cam>0.1] += 1
 
         if use_overlay:
             cam[cam>0.1] += 1

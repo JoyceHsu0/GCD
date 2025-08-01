@@ -35,13 +35,13 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
    Example directory structure:
    ```
    GCD/
-   â”œâ”€â”€ dat/
-   â”‚   â”œâ”€â”€ unetcnx.pth
-   â”‚   â””â”€â”€ demo.1.nii.gz
-   â”œâ”€â”€ gcd_core.py
-   â”œâ”€â”€ gcd.py
-   â”œâ”€â”€ gcd_render.py
-   â””â”€â”€ README.md
+   ¢u¢w¢w dat/
+   ¢x   ¢u¢w¢w unetcnx.pth
+   ¢x   ¢|¢w¢w demo.1.nii.gz
+   ¢u¢w¢w gcd_core.py
+   ¢u¢w¢w gcd.py
+   ¢u¢w¢w gcd_render.py
+   ¢|¢w¢w README.md
    ```
 3. Create and activate a Conda virtual environment with Python 3.10, then install the required packages:
    ```bash
