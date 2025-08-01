@@ -35,13 +35,13 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
    Example directory structure:
    ```
     GCD/
-    ¢u¢w¢w dat/
-    ¢x   ¢u¢w¢w unetcnx.pth
-    ¢x   ¢|¢w¢w demo.1.nii.gz
-    ¢u¢w¢w gcd_core.py
-    ¢u¢w¢w gcd.py
-    ¢u¢w¢w gcd_render.py
-    ¢|¢w¢w README.md
+    ????????? dat/
+    ???   ????????? unetcnx.pth
+    ???   ????????? demo.1.nii.gz
+    ????????? gcd_core.py
+    ????????? gcd.py
+    ????????? gcd_render.py
+    ????????? README.md
    ```
 3. Create and activate a Conda virtual environment with Python 3.10, then install the required packages:
    ```bash
@@ -73,7 +73,7 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
    - **Rotation Controls**: Use the slider to adjust rotation speed or start/stop rotation.
    - **Overlay/Heatmap**: Toggle between overlay mode (heatmap + CT) and heatmap-only mode.
    - **Save Screenshot**: Save the current view as a PNG file.
-   - **Record Video**: Record a 360?¢X rotation video of the visualization as an MP4 file.
+   - **Record Video**: Record a 360¢X rotation video of the visualization as an MP4 file.
 
 ## Files
 
