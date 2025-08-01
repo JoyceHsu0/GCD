@@ -50,7 +50,7 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
    ```
 4. Install PyTorch with CUDA 11.3 support:
    ```
-   pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
+   pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113
    ```
 
 5. Install the remaining dependencies from requirements.txt:
@@ -88,6 +88,7 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
 - Ensure the `dat` directory contains the `unetcnx.pth` file and your NIfTI files before running the application.
 - The application assumes a model input size of 128x128x128 and specific spacing (`(0.7, 0.7, 1.0)`). Adjust these in `gcd_core.py` if needed.
 - Video recording requires sufficient disk space and may take time depending on the rotation speed and number of frames.
+- Public datasets are available to test run. For example, https://www.kaggle.com/datasets/rajendrakpandey/mm-whs-2017-dataset-5-62-gb-158-files-ct-and-mr
 
 ## Troubleshooting
 
