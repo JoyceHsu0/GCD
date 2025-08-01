@@ -37,16 +37,16 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
    - **CT scan data**: Place your NIfTI files (e.g., `demo.1.nii.gz`) in the `dat` directory.
 
    Example directory structure:
-   ```
-   GCD/
-    ¢u¢w¢w dat/
-    ¢x   ¢u¢w¢w unetcnx.pth
-    ¢x   ¢u¢w¢w demo.1.nii.gz
-    ¢u¢w¢w gcd_core.py
-    ¢u¢w¢w gcd.py
-    ¢u¢w¢w gcd_render.py
-    ¢u¢w¢w README.md
-   ```
+```
+GCD/
+¢u¢w¢w dat/
+¢x   ¢u¢w¢w unetcnx.pth
+¢x   ¢u¢w¢w demo.1.nii.gz
+¢u¢w¢w gcd_core.py
+¢u¢w¢w gcd.py
+¢u¢w¢w gcd_render.py
+¢u¢w¢w README.md
+```
 
 ## Usage
 
