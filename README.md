@@ -17,6 +17,7 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
 
 ## Prerequisites
 
+- Python 3.8 or higher
 - Required Python packages (install via `pip`):
   ```bash
   pip install torch monai numpy PyQt6 vtk imageio
