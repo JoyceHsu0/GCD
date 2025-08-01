@@ -73,7 +73,7 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
    - **Rotation Controls**: Use the slider to adjust rotation speed or start/stop rotation.
    - **Overlay/Heatmap**: Toggle between overlay mode (heatmap + CT) and heatmap-only mode.
    - **Save Screenshot**: Save the current view as a PNG file.
-   - **Record Video**: Record a 360?¢X rotation video of the visualization as an MP4 file.
+   - **Record Video**: Record a 360° rotation video of the visualization as an MP4 file.
 
 ## Files
 
