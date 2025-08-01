@@ -17,9 +17,11 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
 
 ## Prerequisites
 
+- Python 3.8 or higher
 - Required Python packages (install via `pip`):
   ```bash
-  pip install torch monai numpy PyQt6 vtk imageio
+  pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
+  pip install -r requirements.txt
   ```
 - A compatible GPU with CUDA support is recommended for faster processing.
 - NIfTI files (`.nii` or `.nii.gz`) for input data.
@@ -65,7 +67,7 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
    - **Rotation Controls**: Use the slider to adjust rotation speed or start/stop rotation.
    - **Overlay/Heatmap**: Toggle between overlay mode (heatmap + CT) and heatmap-only mode.
    - **Save Screenshot**: Save the current view as a PNG file.
-   - **Record Video**: Record a 360Â° rotation video of the visualization as an MP4 file.
+   - **Record Video**: Record a 360?¢X rotation video of the visualization as an MP4 file.
 
 ## Files
 
