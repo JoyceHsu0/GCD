@@ -14,3 +14,74 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
   - Screenshot and video recording capabilities.
 - **VTK Rendering**: High-quality 3D volume rendering with axes indicators and smooth rotation.
 - **Console Output**: Real-time feedback on processing steps and errors.
+
+## Prerequisites
+
+- Required Python packages (install via `pip`):
+  ```bash
+  pip install torch monai numpy PyQt6 vtk imageio
+  ```
+- A compatible GPU with CUDA support is recommended for faster processing.
+- NIfTI files (`.nii` or `.nii.gz`) for input data.
+- Pre-trained model checkpoint file (`unetcnx.pth`).
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/JoyceHsu0/GCD.git
+   cd GCD
+   ```
+2. Create a `dat` directory in the project root and place the required files:
+   - **Pre-trained model weights**: Place the `unetcnx.pth` file in the `dat` directory.
+   - **CT scan data**: Place your NIfTI files (e.g., `demo.1.nii.gz`) in the `dat` directory.
+
+   Example directory structure:
+   ```
+   GCD/
+    ¢u¢w¢w dat/
+    ¢x   ¢u¢w¢w unetcnx.pth
+    ¢x   ¢u¢w¢w demo.1.nii.gz
+    ¢u¢w¢w gcd_core.py
+    ¢u¢w¢w gcd.py
+    ¢u¢w¢w gcd_render.py
+    ¢u¢w¢w README.md
+   ```
+
+## Usage
+
+1. Run the application:
+   ```bash
+   python gcd.py
+   ```
+
+2. The GUI will open with the following controls:
+   - **Open File**: Select a NIfTI file from the `dat` directory or elsewhere.
+   - **Transfer Function Editor**: Click and drag to adjust control points for color and opacity. Double-click to change colors.
+   - **Layer Selection**: Choose a layer from the model to compute Grad-CAM.
+   - **Feature Selection**: Adjust the feature range using input fields or shift buttons (`<` and `>`).
+   - **Rotation Controls**: Use the slider to adjust rotation speed or start/stop rotation.
+   - **Overlay/Heatmap**: Toggle between overlay mode (heatmap + CT) and heatmap-only mode.
+   - **Save Screenshot**: Save the current view as a PNG file.
+   - **Record Video**: Record a 360Â° rotation video of the visualization as an MP4 file.
+
+## Files
+
+- `gcd.py`: Main application script with the PyQt6 GUI.
+- `gcd_core.py`: Core logic for loading, processing, and computing Grad-CAM.
+- `gcd_render.py`: VTK-based rendering for 3D visualization.
+- `dat/unetcnx.pth`: Pre-trained model weights (must be provided by the user).
+- `dat/*.nii.gz`: Input NIfTI files (e.g., CT scans).
+
+## Notes
+
+- Ensure the `dat` directory contains the `unetcnx.pth` file and your NIfTI files before running the application.
+- The application assumes a model input size of 128x128x128 and specific spacing (`(0.7, 0.7, 1.0)`). Adjust these in `gcd_core.py` if needed.
+- Video recording requires sufficient disk space and may take time depending on the rotation speed and number of frames.
+
+## Troubleshooting
+
+- **Missing `unetcnx.pth`**: Ensure the pre-trained model weights are placed in the `dat` directory.
+- **NIfTI file errors**: Verify that input files are valid NIfTI files and not corrupted.
+- **Performance issues**: Use a CUDA-enabled GPU for faster processing. Check console output for errors.
+- **GUI rendering issues**: Ensure VTK and PyQt6 are correctly installed and compatible with your Python version.
