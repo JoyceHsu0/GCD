@@ -1,0 +1,7 @@
+monai
+numpy
+PyQt6
+vtk
+imageio
+timm
+nibabel
