@@ -17,12 +17,6 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
 
 ## Prerequisites
 
-- Python 3.8 or higher
-- Required Python packages (install via `pip`):
-  ```bash
-  pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
-  pip install -r requirements.txt
-  ```
 - A compatible GPU with CUDA support is recommended for faster processing.
 - NIfTI files (`.nii` or `.nii.gz`) for input data.
 - Pre-trained model checkpoint file (`unetcnx.pth`).
@@ -49,8 +43,20 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
     ¢u¢w¢w gcd_render.py
     ¢|¢w¢w README.md
    ```
+3. Create and activate a Conda virtual environment with Python 3.10, then install the required packages:
+   ```bash
+   conda create -n GCD python=3.10
+   conda activate GCD
+   ```
+4. Install PyTorch with CUDA 11.3 support:
+   ```
+   pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
+   ```
 
-
+5. Install the remaining dependencies from requirements.txt:
+   ```
+   pip install -r requirements.txt
+   ```
 
 ## Usage
 
