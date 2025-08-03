@@ -23,21 +23,20 @@ class gcd_core():
         self.file_name = input_file
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-        self.img0 = mt.LoadImage()(input_file).flip(0)
+        self.img0 = mt.LoadImage()(input_file).flip(1)
         self.img1 = mt.Spacing(mode='bilinear', pixdim=SPACING)(self.img0.unsqueeze(0))
         self.img1 = mt.ScaleIntensityRange(a_min=-42, a_max=423, b_min=0, b_max=1, clip=True)(self.img1)
 
         # zero pad image if too small
         W, D = SIZE+STRIDE, SIZE
         shape = list(self.img1.shape)
-        slices = [slice(None), slice(None), slice(None), slice(None)]
-        if shape[1] < W: x = (W-shape[1])//2; slices[1] = slice(x, x+shape[1]); shape[1] = W
-        if shape[2] < W: x = (W-shape[2])//2; slices[2] = slice(x, x+shape[2]); shape[2] = W
-        if shape[3] < D: x = (D-shape[3])//2; slices[3] = slice(x, x+shape[3]); shape[3] = D
-        if any(s.start is not None for s in slices):
-            img = torch.zeros(shape)
-            img[tuple(slices)] = self.img1
-            self.img1 = img
+        pad = [0,0,0,0,0,0] # backward ordered
+
+        if shape[3] < D: x = D-shape[3]; pad[0:1] = x//2, x-x//2
+        if shape[2] < W: x = W-shape[2]; pad[2:3] = x//2, x-x//2
+        if shape[1] < W: x = W-shape[1]; pad[4:5] = x//2, x-x//2
+        if any(pad):
+            self.img1 = F.pad(self.img1, pad)
             print('info: image is zero padded')
 
         self.img1_spacing = (SPACING[PERMUTE[0]], SPACING[PERMUTE[1]], SPACING[PERMUTE[2]])

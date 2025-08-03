@@ -72,7 +72,7 @@ class VTKRenderer:
         vtk_array = vtk.util.numpy_support.numpy_to_vtk(np_array.ravel(), deep=True, array_type=vtk.VTK_FLOAT)
         
         image_data = vtk.vtkImageData()
-        image_data.SetDimensions(np_array.shape[::-1])
+        image_data.SetDimensions(np_array.shape)
         image_data.SetSpacing(spacing)
         image_data.GetPointData().SetScalars(vtk_array)
 
