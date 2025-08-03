@@ -97,3 +97,8 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
 - **NIfTI file errors**: Verify that input files are valid NIfTI files and not corrupted.
 - **Performance issues**: Use a CUDA-enabled GPU for faster processing. Check console output for errors.
 - **GUI rendering issues**: Ensure VTK and PyQt6 are correctly installed and compatible with your Python version.
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
