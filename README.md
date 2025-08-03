@@ -1,13 +1,11 @@
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
 # Grad-CAM Discoverer
-
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging data (e.g., CT scans) using Grad-CAM (Gradient-weighted Class Activation Mapping) with a PyQt6-based GUI and VTK for volume rendering. It allows users to load NIfTI files, process them with a pre-trained model, visualize the results with customizable transfer functions, and interact with the visualization through rotation controls and feature selection.
 
 ## Features
 
 - **Load and Process NIfTI Files**: Load medical imaging data in NIfTI format (`.nii` or `.nii.gz`) and process it using a pre-trained UNETCNX model.
-- **Grad-CAM Visualization**: Generate and display Grad-CAM heatmaps overlaid on 3D volume data.
+- **Grad-CAM Visualization**: Generate and display Grad-CAM heatmaps overlaid on 3D olume data.
 - **Interactive GUI**: Built with PyQt6, featuring:
   - File selection for loading NIfTI files.
   - Transfer function editor for customizing color and opacity.
