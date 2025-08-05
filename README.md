@@ -3,6 +3,16 @@
 
 Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging data (e.g., CT scans) using Grad-CAM (Gradient-weighted Class Activation Mapping) with a PyQt6-based GUI and VTK for volume rendering. It allows users to load NIfTI files, process them with a pre-trained model, visualize the results with customizable transfer functions, and interact with the visualization through rotation controls and feature selection.
 
+## Table of Contents
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Files](#files)
+- [Notes](#notes)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
+
 ## Features
 
 - **Load and Process NIfTI Files**: Load medical imaging data in NIfTI format (`.nii` or `.nii.gz`) and process it using a pre-trained UNETCNX model.
@@ -36,13 +46,13 @@ Grad-CAM Discoverer is a Python application for visualizing 3D medical imaging d
    Example directory structure:
    ```
    GCD/
-   â”œâ”€â”€ dat/
-   â”‚   â”œâ”€â”€ unetcnx.pth
-   â”‚   â””â”€â”€ demo.1.nii.gz
-   â”œâ”€â”€ gcd_core.py
-   â”œâ”€â”€ gcd.py
-   â”œâ”€â”€ gcd_render.py
-   â””â”€â”€ README.md
+   ¢u¢w¢w dat/
+   ¢x   ¢u¢w¢w unetcnx.pth
+   ¢x   ¢|¢w¢w demo.1.nii.gz
+   ¢u¢w¢w gcd_core.py
+   ¢u¢w¢w gcd.py
+   ¢u¢w¢w gcd_render.py
+   ¢|¢w¢w README.md
    ```
 3. Create and activate a Conda virtual environment with Python 3.10, then install the required packages:
    ```bash
